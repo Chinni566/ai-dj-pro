@@ -1,5 +1,5 @@
-Peter_pan_song="";
-Harry_potter_theme_song="";
+song = "";
+song_2 = "";
 
 leftWristX = 0;
 leftWristY = 0;
@@ -10,29 +10,28 @@ rightWristY =0;
 
 left_wrist_score = 0;
 right_wrist_score = 0;
+song1_status = "";
+song2_status = "";
 
+function preload(){
+    song = loadSound("music.mp3");
+    song_2 = loadSound("music2.mp3")
+}
+
+//creating canvas 
 function setup(){
-    canvas = createCanvas(400,430);
+    canvas = createCanvas(500,450);
     canvas.center();
 
     video = createCapture(VIDEO);
     video.hide();
-
+ //initializing  poseNet model
     poseNet = ml5.poseNet(video , modelLoaded);
     poseNet.on('pose', gotPoses);
 }
 
 function modelLoaded() {
     console.log("Pose Net Is initialized")
-}
-
-function preload(){
-    Peter_pan_song = loadSound("music2.mp3");
-    Harry_potter_theme_song = loadSound("music.mp3");
-}
-
-function draw(){
-    image(video,0,0,400,430);
 }
 
 function gotPoses(results) {
@@ -56,9 +55,41 @@ function gotPoses(results) {
     } 
 }
 
+
+ 
 function draw(){
     image (video,0,0,600,500);
 
     
     fill ("#FF0000");
-    stroke ("#FF0000");}
+    stroke ("#FF0000");
+
+    song1_status = song.isPlaying();
+    song2_status = song_2.isPlaying();
+  
+    if(right_wrist_score > 0.2)
+	{ 
+		circle(rightWristX,rightWristY,20);
+
+			song.stop();
+
+		if(song2_status == false)
+		{
+			song_2.play();
+			document.getElementById("lbl_song_name").innerHTML = "Playing - Harry porter";
+		}
+	}
+
+if(left_wrist_score > 0.2)
+	{
+		circle(leftWristX,leftWristY,20);
+
+			song_2.stop();
+
+		if(song1_status == false)
+		{
+			song.play();
+			document.getElementById("lbl_song_name").innerHTML = "Playing - Peter pan";
+		}
+	}
+    }
