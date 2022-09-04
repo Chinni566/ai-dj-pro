@@ -20,7 +20,7 @@ function preload(){
 
 //creating canvas 
 function setup(){
-    canvas = createCanvas(500,450);
+    canvas = createCanvas(350,300);
     canvas.center();
 
     video = createCapture(VIDEO);
@@ -75,8 +75,8 @@ function draw(){
 
 		if(song2_status == false)
 		{
-			song_2.play();
-			document.getElementById("lbl_song_name").innerHTML = "Playing - Harry porter";
+			song.play();
+			document.getElementById("heading").innerHTML = "Playing - Harry Porter Theme";
 		}
 	}
 
@@ -84,12 +84,12 @@ if(left_wrist_score > 0.2)
 	{
 		circle(leftWristX,leftWristY,20);
 
-			song_2.stop();
+			song.stop();
 
 		if(song1_status == false)
 		{
-			song.play();
-			document.getElementById("lbl_song_name").innerHTML = "Playing - Peter pan";
+			song_2.play();
+			document.getElementById("heading").innerHTML = "Playing - Peter pan";
 		}
 	}
     }
